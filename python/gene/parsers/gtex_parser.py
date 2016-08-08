@@ -1,3 +1,2 @@
 import pandas
 
-print "haha"
