@@ -2,6 +2,11 @@ import numpy as np
 import math
 
 
+def mean(vector_x):
+    assert (vector_x is not None)
+    return np.sum(vector_x) / len(vector_x)
+
+
 class Correlation(object):
     def __init__(self, vector_x, vector_y):
         self.x = vector_x
@@ -17,9 +22,7 @@ class Correlation(object):
         return rho
 
 
-def mean(vector_x):
-    assert (vector_x is not None)
-    return np.sum(vector_x) / len(vector_x)
+
 
 
 
