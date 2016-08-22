@@ -1,6 +1,5 @@
 from parsers.gtex_parser import *
 
-
 class LinearRegression(object):
     def __init__(self):
         self.response = None
