@@ -4,18 +4,19 @@ import analysis.utils
 
 class TestCorrelation(unittest.TestCase):
     def setUp(self):
-        self.x = [1, 2, 3, 4]
-        self.y = [4, 3, 2, 1]
+        self.x = [2, 3]
+        self.y = [-2, 3]
 
     def TearDown(self):
         pass
 
     def test_correlation_is_one_when_vectors_are_same(self):
         cor_obj = analysis.utils.Correlation(self.x, self.x)
-        self.assertEquals(cor_obj.calculate_rho(), -1.0)
+        self.assertEquals(cor_obj.calculate_rho(), 1.0)
 
     def test_correlation_is_minus_one_when_vectors_are_opposite(self):
-        pass
+        cor_obj = analysis.utils.Correlation(self.x, self.y)
+        self.assertEquals(cor_obj.calculate_rho(), -1.0)
 
     def test_correlation_is_zero_when_vectors_are_orthogonal(self):
         pass

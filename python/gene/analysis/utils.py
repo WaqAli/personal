@@ -9,8 +9,8 @@ def mean(vector_x):
 
 class Correlation(object):
     def __init__(self, vector_x, vector_y):
-        self.x = vector_x
-        self.y = vector_y
+        self.x = np.array(vector_x, dtype=float)
+        self.y = np.array(vector_y, dtype=float)
 
     def calculate_rho_using_numpy(self):
         return np.corrcoef(self.x, self.y)
