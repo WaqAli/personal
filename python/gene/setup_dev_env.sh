@@ -1,7 +1,6 @@
 #! /bin/bash
 virtualenv --no-site-packages ./python/gene/env
 source ./python/gene/env/bin/activate
-pip install numpy
-pip install scipy
+pip install nose
 
 
