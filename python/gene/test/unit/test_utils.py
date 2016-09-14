@@ -63,5 +63,5 @@ class TestMean(unittest.TestCase):
         self.assertTrue(np.isnan(analysis.utils.mean(vector_x)))
 
 
-if __name__ == "__main__":
-    unittest.main()
+#if __name__ == "__main__":
+#    unittest.main()
