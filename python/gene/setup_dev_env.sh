@@ -2,4 +2,3 @@
 
 source "$( dirname "${BASH_SOURCE[0]}" )/env/bin/activate"
 echo $PYTHONPATH
-pip install nose
