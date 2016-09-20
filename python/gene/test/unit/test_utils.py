@@ -62,6 +62,9 @@ class TestMean(unittest.TestCase):
         vector_x = [1, 1, 1, 1, 1, 1, 1, 1, np.nan, 1]
         self.assertTrue(np.isnan(analysis.utils.mean(vector_x)))
 
+    def test_should_fail(self):
+        self.fail()
+
 
 if __name__ == "__main__":
     unittest.main()
