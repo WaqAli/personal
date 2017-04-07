@@ -31,8 +31,8 @@ class PMF(object):
                 self.users[user] = 1
                 self.objects[object] =1
                 self.M[str(user) + ':' + str(object)] = ranking
-            self.U = np.ndarray((max_user, self.dim)) * 0
-            self.V = np.ndarray((max_object, self.dim)) * 0
+            self.U = np.ndarray((max_user+1, self.dim)) * 0
+            self.V = np.ndarray((max_object+1, self.dim)) * 0
 
     def initialize_objects(self):
         for index in self.objects:
