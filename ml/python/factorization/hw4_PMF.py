@@ -13,6 +13,8 @@ class PMF(object):
         self.dim = 5
         self.lamda = 2
         self.sigma_sqr = 0.1
+        self.iterations = 50
+        self.L = None
         self.I = np.identity(self.dim)
 
     def read_input(self, filename):
@@ -37,6 +39,26 @@ class PMF(object):
     def initialize_objects(self):
         for index in self.objects:
             self.V[int(index)] = np.random.multivariate_normal(mean=np.zeros(self.dim), cov=(self.lamda**-1)*self.I)
+
+
+    def update_users(self):
+        pass
+
+    def update_objects(self):
+        pass
+
+    def calculate_likelihood(self):
+        pass
+
+    
+    def run_pmf(self):
+        for iteration in range(1, self.iterations+1):
+            self.update_users()
+            self.update_objects()
+            self.calculate_likelihood()
+
+
+
 
 
 if __name__ == '__main__':
