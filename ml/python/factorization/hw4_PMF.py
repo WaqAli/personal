@@ -42,7 +42,8 @@ class PMF(object):
 
 
     def update_users(self):
-        pass
+        for user in self.users:
+            self.U[int(user)] = self.lamda*self.sigma_sqr*self.I
 
     def update_objects(self):
         pass
@@ -50,7 +51,7 @@ class PMF(object):
     def calculate_likelihood(self):
         pass
 
-    
+
     def run_pmf(self):
         for iteration in range(1, self.iterations+1):
             self.update_users()
@@ -65,4 +66,5 @@ if __name__ == '__main__':
     pmf = PMF()
     pmf.read_input(sys.argv[1])
     pmf.initialize_objects()
-    print pmf.V
+    pmf.run_pmf()
+    print pmf.U
