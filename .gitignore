@@ -1,6 +1,6 @@
 .idea/
 *.pyc
 python/gene/env/
-spark-course/*.scala
+spark-course/blah.scala
 
 
