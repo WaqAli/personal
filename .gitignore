@@ -2,5 +2,5 @@
 *.pyc
 python/gene/env/
 spark-course/
-!spark-course/*.scala
+
 
