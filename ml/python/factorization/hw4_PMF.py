@@ -47,12 +47,12 @@ class PMF(object):
 
     def update_users(self):
         for user in self.users:
-            self.U[int(user)] = (np.linalg.inv(self.lamda*self.sigma_sqr*self.I + self.sum_vv()) \
+            self.U[int(user)] = (np.linalg.inv(self.lamda*self.sigma_sqr*self.I + self.sum_vv(user)) \
             * self.sum_Mv(user)).transpose()
 
     def update_objects(self):
         for obj in self.objects:
-            self.V[int(obj)] = (np.linalg.inv(self.lamda * self.sigma_sqr * self.I + self.sum_uu()) \
+            self.V[int(obj)] = (np.linalg.inv(self.lamda * self.sigma_sqr * self.I + self.sum_uu(obj)) \
                                 * self.sum_Mu(obj)).transpose()
 
 
@@ -70,16 +70,18 @@ class PMF(object):
                 summation = summation + self.M[str(index) + ':' + str(i)] * self.U[int(index)].transpose()
         return summation
 
-    def sum_vv(self):
+    def sum_vv(self, user):
         sum = 0.0
         for index in self.objects:
-            sum = sum + (self.V[int(index)].transpose() * self.V[int(index)])
+            if (str(user) + ':' + str(index)) in self.M:
+                sum = sum + (self.V[int(index)].transpose() * self.V[int(index)])
         return sum
 
-    def sum_uu(self):
+    def sum_uu(self, obj):
         sum = 0.0
         for index in self.users:
-            sum = sum + (self.U[int(index)].transpose() * self.U[int(index)])
+            if (str(index) + ':' + str(obj)) in self.M:
+                sum = sum + (self.U[int(index)].transpose() * self.U[int(index)])
         return sum
 
 
