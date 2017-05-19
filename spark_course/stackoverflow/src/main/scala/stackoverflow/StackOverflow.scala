@@ -123,7 +123,7 @@ class StackOverflow extends Serializable {
       }
     }
 
-    ???
+    scored.map(y => (firstLangInTag(y._1.tags, langs).getOrElse(100), y._2)).filter(y => y._1 != 100).map(y => (y._1 * langSpread, y._2)).reduceByKey( (a, b)  => if (a > b) a else b)
   }
 
 
