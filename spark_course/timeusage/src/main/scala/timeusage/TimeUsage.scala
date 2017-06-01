@@ -100,7 +100,10 @@ object TimeUsage {
      || col.startsWith("t15") || col.startsWith("t16") || col.startsWith("t18")) && (! primary_needs.contains(col)) && (! working.contains(col))) 
      ) yield col
     
-    (primary_needs, working, other)
+    
+    val df = spark.createDataFrame(spark.sparkContext.emptyRDD[Row], dfSchema(columnNames))
+     
+     (for(col <- primary_needs) yield df.col(col), for(col <- working) yield df.col(col), for(col <- other) yield df.col(col))
      
   }
 
