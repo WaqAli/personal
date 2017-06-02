@@ -160,7 +160,7 @@ object TimeUsage {
 
     val zero_column: Column = df.withColumn("zero", lit(0.0)).col("zero")
     
-    val primaryNeedsProjection: Column = workColumns.reduce(red_func)
+    val primaryNeedsProjection: Column = df(primaryNeedsColumns(0).toString()) + df(primaryNeedsColumns(1).toString())
    
     
    
