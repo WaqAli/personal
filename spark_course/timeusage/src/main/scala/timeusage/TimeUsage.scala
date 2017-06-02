@@ -29,6 +29,7 @@ object TimeUsage {
   def timeUsageByLifePeriod(): Unit = {
     val (columns, initDf) = read("/timeusage/atussum.csv")
     val (primaryNeedsColumns, workColumns, otherColumns) = classifiedColumns(columns)
+    
     val summaryDf = timeUsageSummary(primaryNeedsColumns, workColumns, otherColumns, initDf)
     val finalDf = timeUsageGrouped(summaryDf)
     finalDf.show()
@@ -40,6 +41,7 @@ object TimeUsage {
 
     val headerColumns = rdd.first().split(",").to[List]
     // Compute the schema based on the first line of the CSV file
+    println(headerColumns)
     val schema = dfSchema(headerColumns)
 
     val data =
@@ -143,15 +145,31 @@ object TimeUsage {
     otherColumns: List[Column],
     df: DataFrame
   ): DataFrame = {
-    val workingStatusProjection: Column = ???
-    val sexProjection: Column = ???
-    val ageProjection: Column = ???
+    
+    
+    
+    val telfs_func = udf((x : Int) => if (1 <= x && x < 3) "working" else "not working")
+    val sex_func = udf((x : Int) => if (1 == x) "male" else "female")
+    val age_func = udf((x : Int) => if (15 <= x && x <= 22) "young" else if(23  <= x && x <= 55) "active" else "elder")
+    
+ 
+    
+    val workingStatusProjection: Column = telfs_func(df("telfs"))
+    val sexProjection: Column = sex_func(df("tesex"))
+    val ageProjection: Column = age_func(col("teage"))
 
-    val primaryNeedsProjection: Column = ???
-    val workProjection: Column = ???
-    val otherProjection: Column = ???
-    df
-      .select(workingStatusProjection, sexProjection, ageProjection, primaryNeedsProjection, workProjection, otherProjection)
+    val zero_column: Column = df.withColumn("zero", lit(0.0)).col("zero")
+    
+    val primaryNeedsProjection: Column = workColumns.reduce(red_func)
+   
+    
+   
+  
+ //   val workProjection: Column = workColumns.foldLeft(df("telfs")*0)(_+_)
+ //   val otherProjection: Column = otherColumns.foldLeft(df("telfs")*0)(_+_)
+    
+    df.withColumn("working", workingStatusProjection).withColumn("sex", sexProjection).withColumn("age", ageProjection).withColumn("primaryNeeds", primaryNeedsProjection).withColumn("work", ageProjection).withColumn("other", ageProjection)
+      .select("working", "sex", "age", "primaryNeeds", "work", "other")
       .where($"telfs" <= 4) // Discard people who are not in labor force
   }
 
